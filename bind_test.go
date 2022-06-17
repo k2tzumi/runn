@@ -38,7 +38,7 @@ func TestBindRunnerRun(t *testing.T) {
 				bindVars: map[string]interface{}{},
 			},
 			map[string]string{
-				"newkey": "vars.key",
+				"newkey": "{{ vars.key }}",
 			},
 			store{
 				steps: []map[string]interface{}{},

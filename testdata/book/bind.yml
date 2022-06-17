@@ -3,6 +3,12 @@ steps:
   a:
     bind:
       value: hello
-  t:
+      value2: world
+  ta:
     test: 'value == "hello"'
+  b:
+    bind:
+      value: '{{ value2 }}'
+  tb:
+    test: 'value == "world"'
       

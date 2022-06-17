@@ -6,4 +6,4 @@ steps:
     test: 'vars.filename == "include_a.yml"'
   a:
     bind:
-      filename: vars.filename
+      filename: '{{ vars.filename }}'
