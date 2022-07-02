@@ -35,6 +35,25 @@ func TestParseHTTPRequest(t *testing.T) {
 		},
 		{
 			`
+/login:
+  post:
+    body:
+      application/json:
+        password: "{{ vars.password }}"	
+`,
+			&httpRequest{
+				path:      "/login",
+				method:    http.MethodPost,
+				mediaType: MediaTypeApplicationJSON,
+				headers:   map[string]string{},
+				body: map[string]interface{}{
+					"key": "value",
+				},
+			},
+			false,
+		},
+		{
+			`
 /users/k1LoW:
   get: 
     body: null
