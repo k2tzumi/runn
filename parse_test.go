@@ -69,6 +69,21 @@ func TestParseHTTPRequest(t *testing.T) {
 		},
 		{
 			`
+/users/{{ vars.userId }}:
+  get: 
+    body: null
+`,
+			&httpRequest{
+				path:      "/users/k1LoW",
+				method:    http.MethodGet,
+				mediaType: "",
+				headers:   map[string]string{},
+				body:      nil,
+			},
+			false,
+		},
+		{
+			`
 /users/k1LoW:
   get: null
 `,
