@@ -35,7 +35,7 @@ func TestExpand(t *testing.T) {
 		},
 		{
 			[]map[string]interface{}{},
-			map[string]interface{}{"one": string("1")},
+			map[string]interface{}{"one": "1"},
 			map[string]string{"key": "{{ vars.one }}"},
 			map[string]interface{}{"key": "1"},
 		},
@@ -59,7 +59,7 @@ func TestExpand(t *testing.T) {
 		},
 		{
 			[]map[string]interface{}{},
-			map[string]interface{}{"one": uint64(1)},
+			map[string]interface{}{"one": 01},
 			map[string]string{"key": "{{ vars.one }}"},
 			map[string]interface{}{"key": uint64(1)},
 		},
