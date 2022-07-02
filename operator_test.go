@@ -35,6 +35,18 @@ func TestExpand(t *testing.T) {
 		},
 		{
 			[]map[string]interface{}{},
+			map[string]interface{}{"one": "01"},
+			map[string]string{"path/{{ vars.one }}": "value"},
+			map[string]interface{}{"path/01": "value"},
+		},
+		{
+			[]map[string]interface{}{},
+			map[string]interface{}{"year": 2022},
+			map[string]string{"path?year={{ vars.year }}": "value"},
+			map[string]interface{}{"path?year=2022": "value"},
+		},
+		{
+			[]map[string]interface{}{},
 			map[string]interface{}{"one": "ichi"},
 			map[string]string{"{{ vars.one }}": "val"},
 			map[string]interface{}{"ichi": "val"},
@@ -50,6 +62,12 @@ func TestExpand(t *testing.T) {
 			map[string]interface{}{"one": 1},
 			map[string]string{"key": "{{ vars.one + 1 }}"},
 			map[string]interface{}{"key": uint64(2)},
+		},
+		{
+			[]map[string]interface{}{},
+			map[string]interface{}{"one": 1},
+			map[string]string{"key": "{{ vars.one }}-{{ vars.one }}"},
+			map[string]interface{}{"key": "1-1"},
 		},
 		{
 			[]map[string]interface{}{},
