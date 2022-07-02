@@ -35,9 +35,33 @@ func TestExpand(t *testing.T) {
 		},
 		{
 			[]map[string]interface{}{},
-			map[string]interface{}{"one": "1"},
+			map[string]interface{}{"one": "01"},
+			map[string]string{"key": "prefix{{ vars.one }}suffix"},
+			map[string]interface{}{"key": "prefix01suffix"},
+		},
+		{
+			[]map[string]interface{}{},
+			map[string]interface{}{"one": "01"},
+			map[string]string{"path/{{ vars.one }}": "value"},
+			map[string]interface{}{"path/01": "value"},
+		},
+		{
+			[]map[string]interface{}{},
+			map[string]interface{}{"one": "a1"},
+			map[string]string{"path/{{ vars.one }}": "value"},
+			map[string]interface{}{"path/a1": "value"},
+		},
+		{
+			[]map[string]interface{}{},
+			map[string]interface{}{"one": 01},
 			map[string]string{"key": "{{ vars.one }}"},
-			map[string]interface{}{"key": "1"},
+			map[string]interface{}{"key": uint64(01)},
+		},
+		{
+			[]map[string]interface{}{},
+			map[string]interface{}{"one": 2},
+			map[string]string{"key": "prefix{{ vars.one }}suffix"},
+			map[string]interface{}{"key": "prefix2suffix"},
 		},
 		{
 			[]map[string]interface{}{},
