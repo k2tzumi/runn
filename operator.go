@@ -697,6 +697,7 @@ func (o *operator) expand(in interface{}) (interface{}, error) {
 			var s string
 			switch v := o.(type) {
 			case string:
+				// string for expr only.
 				if strings.TrimSpace(in) == m[0] && numberRe.MatchString(v) {
 					s = fmt.Sprintf("'%s'", v)
 				} else {
