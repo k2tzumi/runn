@@ -101,6 +101,40 @@ func TestExpand(t *testing.T) {
 	}
 }
 
+func TestExpandFail(t *testing.T) {
+	tests := []struct {
+		steps   []map[string]interface{}
+		vars    map[string]interface{}
+		in      interface{}
+		wantErr string
+	}{
+		{
+			[]map[string]interface{}{},
+			map[string]interface{}{},
+			map[string]string{"undefine": "{{ vars.unknown }}"},
+			"cannot fetch vars from runn.store",
+		},
+	}
+	for _, tt := range tests {
+		o, err := New()
+		if err != nil {
+			t.Fatal(err)
+		}
+		o.store.steps = tt.steps
+		o.store.vars = tt.vars
+
+		got, err := o.expand(tt.in)
+
+		if err == nil {
+			t.Fatalf("No error occurred. got %v\n", got)
+		} else {
+			if err.Error() != tt.wantErr {
+				t.Errorf("gotErr %s\nwantErr %s", err, tt.wantErr)
+			}
+		}
+	}
+}
+
 func TestNewOption(t *testing.T) {
 	tests := []struct {
 		opts    []Option

@@ -76,6 +76,8 @@ type store struct {
 	useMaps    bool
 }
 
+type storeType = store
+
 func (s *store) toMap() map[string]interface{} {
 	store := map[string]interface{}{}
 	for k, v := range s.funcs {
@@ -754,7 +756,13 @@ func (o *operator) expand(in interface{}) (interface{}, error) {
 		matches := expandRe.FindAllStringSubmatch(in, -1)
 		oldnew := []string{}
 		for _, m := range matches {
-			o, err := expr.Eval(m[1], store)
+			program, err := expr.Compile(m[1], expr.Env(storeType{}))
+
+			if err != nil {
+				reperr = err
+			}
+
+			o, err := expr.Run(program, store)
 			if err != nil {
 				reperr = err
 			}
@@ -774,7 +782,7 @@ func (o *operator) expand(in interface{}) (interface{}, error) {
 			case bool:
 				s = strconv.FormatBool(v)
 			case nil:
-				// expand nil. s = nil
+			// expand nil. s = nil
 			default:
 				reperr = fmt.Errorf("invalid format: %v\n%s", o, string(b))
 			}
