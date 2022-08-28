@@ -1,0 +1,23 @@
+name: runn action test
+
+on:
+  push:
+
+jobs:
+  test-execution:
+    runs-on: ubuntu-latest
+    services:
+      httpbin:
+        image: kennethreitz/httpbin:latest
+        ports:
+          - 8080:80
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: k2tzumi/runn-action@v0
+        with:
+          command: run
+          path_pattern: testdata/book/httpbin.yml
+          debug: true
+        env:
+          HTTPBIN_END_POINT: http://172.17.0.1:8080/
