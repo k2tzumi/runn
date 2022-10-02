@@ -1,0 +1,31 @@
+name: runn-action integration
+
+on:
+  push:
+
+jobs:
+  test-execution:
+    runs-on: ubuntu-latest
+    concurrency: 
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    services:
+      httpbin:
+        image: kennethreitz/httpbin:latest
+        ports:
+          - 8080:80
+    steps:
+      - uses: actions/checkout@v2
+
+      # option test
+      - uses: ./runn-action
+        with:
+          command: run
+          path_pattern: testdata/book/httpbin.yml
+          debug: true
+          fail-fast: true
+          skip-test: false
+        env:
+          # Override parameters in scenario with environment variables
+          # NOTE: Specify `172.17.0.1` when accessing services on the GitHub Actions host.
+          HTTPBIN_END_POINT: http://172.17.0.1:8080/
