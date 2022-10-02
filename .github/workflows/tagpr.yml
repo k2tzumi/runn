@@ -17,7 +17,7 @@ jobs:
 
       - id: run-tagpr
         name: Run tagpr
-        uses: Songmu/tagpr@v1
+        uses: Songmu/tagpr@v1.0.2
 
   release:
     needs: tagpr
