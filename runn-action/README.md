@@ -32,7 +32,7 @@ jobs:
       -
         uses: actions/checkout@v2
       -
-        uses: k2tzumi/runn/runn-action@v0.37.3
+        uses: k2tzumi/runn/runn-action@v0.37.4
         with:
           path_pattern: testdata/path/to/*.yml
         env:
