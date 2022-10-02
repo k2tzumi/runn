@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       # option test
-      - uses: ./runn-action
+      - uses: ./
         with:
           command: run
           path_pattern: testdata/book/httpbin.yml
