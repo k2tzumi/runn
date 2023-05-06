@@ -132,6 +132,14 @@ two: ni`,
 			MediaTypeApplicationFormUrlencoded,
 			`one=ichi&two=ni`,
 		},
+		{
+			`
+data:
+  one: "i\nchi"
+  two: "n\r\ni"`,
+			MediaTypeApplicationJSON,
+			`{"data":{"one":"i\nchi","two":"n\r\ni"}}`,
+		},
 	}
 
 	for _, tt := range tests {
@@ -400,6 +408,20 @@ func TestHTTPRunnerWithHandler(t *testing.T) {
 				_, _ = w.Write([]byte("hello k1LoW!"))
 			},
 			http.StatusNotFound,
+		},
+		{
+			&httpRequest{
+				path:      "/users/newline",
+				method:    http.MethodGet,
+				mediaType: MediaTypeApplicationJSON,
+				body:      map[string]interface{}{"key": "new\n", "value": "line\r\n"},
+			},
+			"/users/newline",
+			func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write([]byte(`{ key: "hello\n", value: "world\r\n!" }`))
+			},
+			http.StatusOK,
 		},
 	}
 	ctx := context.Background()

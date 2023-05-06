@@ -67,6 +67,44 @@ func TestParseHTTPRequest(t *testing.T) {
 			nil,
 			true,
 		},
+		{
+			`
+/newline:
+  post:
+    body:
+      application/json:
+        key: "new\nline"
+`,
+			&httpRequest{
+				path:      "/newline",
+				method:    http.MethodPost,
+				mediaType: MediaTypeApplicationJSON,
+				headers:   map[string]string{},
+				body: map[string]interface{}{
+					"key": "new\nline",
+				},
+			},
+			false,
+		},
+		{
+			`
+/escaped-newline:
+  post:
+    body:
+      application/json:
+        key: "new\\nline"
+`,
+			&httpRequest{
+				path:      "/escaped-newline",
+				method:    http.MethodPost,
+				mediaType: MediaTypeApplicationJSON,
+				headers:   map[string]string{},
+				body: map[string]interface{}{
+					"key": "new\\nline",
+				},
+			},
+			false,
+		},
 	}
 
 	for _, tt := range tests {
