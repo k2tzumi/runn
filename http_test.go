@@ -132,6 +132,14 @@ two: ni`,
 			MediaTypeApplicationFormUrlencoded,
 			`one=ichi&two=ni`,
 		},
+		{
+			`
+data:
+  one: "i\nchi"
+  two: "n\r\ni"`,
+			MediaTypeApplicationJSON,
+			`{"data":{"one":"i\nchi","two":"n\r\ni"}}`,
+		},
 	}
 
 	for _, tt := range tests {
