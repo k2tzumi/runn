@@ -1,3 +1,5 @@
+## [v0.75.3](https://github.com/k2tzumi/runn/compare/v0.69.0...v0.75.3) - 2023-07-15
+
 ## [v0.75.3](https://github.com/k1LoW/runn/compare/v0.75.2...v0.75.3) - 2023-06-11
 ### New Features 🎉
 - Add built-in functions for JSON. by @k1LoW in https://github.com/k1LoW/runn/pull/539
