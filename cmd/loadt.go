@@ -70,7 +70,7 @@ var loadtCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		s, err := setting.New(flgs.LoadTConcurrent, d, w)
+		s, err := setting.New(flgs.LoadTConcurrent, 10, d, w)
 		if err != nil {
 			return err
 		}
