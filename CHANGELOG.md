@@ -1,3 +1,5 @@
+## [v0.81.1](https://github.com/k2tzumi/runn/compare/v0.80.2...v0.81.1) - 2023-08-31
+
 ## [v0.81.1](https://github.com/k1LoW/runn/compare/v0.81.0...v0.81.1) - 2023-08-23
 ### New Features 🎉
 - Enable to get error output for each result by @k1LoW in https://github.com/k1LoW/runn/pull/602
